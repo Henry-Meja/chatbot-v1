@@ -67,6 +67,7 @@ function handleInput(input) {
       }, index * 1500);
     });
 
+    // Mark level complete only after all sub-questions
     setTimeout(() => {
       levelOneCompleted = true;
       botReply("✅ Level 1 complete!");
@@ -94,5 +95,5 @@ userInput.addEventListener("keydown", (e) => {
 
 // Start chat
 botReply("Welcome to Henry Wakasiaka's ChatBot! 🎉");
-botReply("I'm here to challenge you with fun and facts. Let's start!");
+botReply("I'm here to challenge you with fun and facts. Type a topic to begin.");
 showMainChoices();
