@@ -91,7 +91,7 @@ function handleUserInput(inputVal) {
     }
     stage = 99;
   } else {
-    botSay("Would you like to chat again? Refresh the page!");
+    botSay("Would you like to chat again and choose a different option? Refresh the page!");
   }
   input.value = '';
 }
@@ -102,7 +102,7 @@ input.addEventListener('keypress', (e) => {
 });
 
 // Start
-botSay("Hi, I'm Henry Wakasiaka's Smart Bot 🤖");
+botSay("Hi!");
 setTimeout(() => {
   botSay("How are you feeling today? (Happy, Sad, Curious, Bored)");
   stage = 1;
