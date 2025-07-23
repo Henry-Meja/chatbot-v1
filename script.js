@@ -1,306 +1,88 @@
+ // script.js
 
-const chatBox = document.getElementById("chatBox");
-const userInput = document.getElementById("userInput");
+// Get DOM elements
+const chatBox = document.getElementById("chat-box");
+const userInput = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
 
-let currentState = "start";
+// Initial choices
+const mainChoices = ["Maths", "Riddles", "Jokes", "Sciences", "Facts", "Geography", "Space"];
 
-const chatFlow = {
-  start: {
-    message: "Choose a topic:\n1. Riddle\n2. Math\n3. Joke\n4. Science\n5. Exit",
-    options: {
-      "1": "riddle1",
-      "2": "math1",
-      "3": "joke1",
-      "4": "science1",
-      "5": "exit"
-    }
-  },
-
-  riddle1: {
-    message: "🔍 What has keys but can't open locks?",
-    answer: "piano",
-    success: "🎉 Correct! Want another?\n1. Yes\n2. Menu",
-    next: {
-      "1": "riddle2",
-      "2": "start"
-    }
-  },
-  riddle2: {
-    message: "🧩 What comes once in a minute, twice in a moment, but never in a thousand years?",
-    answer: "m",
-    success: "🧠 You're right! Back to menu?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  math1: {
-    message: "🧠 What's 12 + 37 × 2 ?",
-    answer: "86",
-    success: "✅ You're sharp! Try another?\n1. Yes\n2. Menu",
-    next: {
-      "1": "math2",
-      "2": "start"
-    }
-  },
-  math2: {
-    message: "➕ What is the square root of 144?",
-    answer: "12",
-    success: "✔️ Smart! Go on?\n1. More Math\n2. Menu",
-    next: {
-      "1": "math3",
-      "2": "start"
-    }
-  },
-  math3: {
-    message: "➗ What is 99 divided by 3?",
-    answer: "33",
-    success: "Nice job! Back to start?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  joke1: {
-    message: "😂 Why don’t scientists trust atoms?",
-    answer: "they make up everything",
-    success: "🤣 Good one! Next?\n1. Yes\n2. Menu",
-    next: {
-      "1": "joke2",
-      "2": "start"
-    }
-  },
-  joke2: {
-    message: "😆 Why did the math book look sad?",
-    answer: "too many problems",
-    success: "Haha! Back to menu?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  science1: {
-    message: "🌡️ What gas do plants absorb from the air?",
-    answer: "carbon dioxide",
-    success: "✅ Yes! Again?\n1. Yes\n2. Menu",
-    next: {
-      "1": "science2",
-      "2": "start"
-    }
-  },
-  science2: {
-    message: "☀️ What star is at the center of our solar system?",
-    answer: "sun",
-    success: "🌞 Correct! Back to menu?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  exit: {
-    message: "👋 Thanks for chatting with Henry Wakasiaka Chatbot. Come again!",
-    options: {}
-  }
+// Sub-options
+const options = {
+  Maths: ["What is 7 x 8?", "Solve: 15 + (6 × 2) - 4", "Find the square root of 144"],
+  Riddles: ["What has keys but can't open locks?", "I speak without a mouth... What am I?", "What can travel around the world while staying in a corner?"],
+  Jokes: ["Why don't scientists trust atoms? Because they make up everything!", "Why was the math book sad? Too many problems.", "Why do bicycles fall over? Because they are two-tired!"],
+  Sciences: ["Water boils at what temperature in Celsius?", "Name the gas plants use in photosynthesis.", "What organ pumps blood in the body?"],
+  Facts: ["Octopuses have three hearts.", "Bananas are berries but strawberries aren't.", "Honey never spoils."],
+  Geography: ["Capital of Kenya?", "Longest river in the world?", "Which continent is Madagascar in?"],
+  Space: ["Which planet is called the Red Planet?", "What is a light-year?", "Name our galaxy."]
 };
 
-function appendMessage(msg, sender = "bot") {
+let levelOneCompleted = false;
+
+// Append bot message
+function botReply(message) {
   const p = document.createElement("p");
-  p.className = sender === "bot" ? "bot-msg" : "user-msg";
-  p.textContent = msg;
+  p.textContent = "🤖 " + message;
   chatBox.appendChild(p);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function handleUserInput() {
-  const input = userInput.value.trim().toLowerCase();
-  if (!input) return;
-
-  appendMessage(input, "user");
-  userInput.value = "";
-
-  const state = chatFlow[currentState];
-
-  if (state.answer) {
-    if (input.includes(state.answer)) {
-      appendMessage(state.success);
-      currentState = Object.keys(state.next)[0]; // wait for choice
-    } else {
-      appendMessage("❌ Try again.");
-    }
-  } else if (state.options) {
-    const nextState = state.options[input];
-    if (nextState) {
-      currentState = nextState;
-      appendMessage(chatFlow[currentState].message);
-    } else {
-      appendMessage("❗Invalid option. Try again.");
-    }
-  } else if (state.next) {
-    const next = state.next[input];
-    if (next) {
-      currentState = next;
-      appendMessage(chatFlow[currentState].message);
-    } else {
-      appendMessage("❗Invalid option.");
-    }
-  }
-}
-
-// updated scripts
- 
-/*const chatBox = document.getElementById("chatBox");
-const userInput = document.getElementById("userInput");
-
-let currentState = "start";
-
-const chatFlow = {
-  start: {
-    message: "Choose a topic:\n1. Riddle\n2. Math\n3. Joke\n4. Science\n5. Exit",
-    options: {
-      "1": "riddle1",
-      "2": "math1",
-      "3": "joke1",
-      "4": "science1",
-      "5": "exit"
-    }
-  },
-
-  riddle1: {
-    message: "🔍 What has keys but can't open locks?",
-    answer: "piano",
-    success: "🎉 Correct! Want another?\n1. Yes\n2. Menu",
-    next: {
-      "1": "riddle2",
-      "2": "start"
-    }
-  },
-  riddle2: {
-    message: "🧩 What comes once in a minute, twice in a moment, but never in a thousand years?",
-    answer: "m",
-    success: "🧠 You're right! Back to menu?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  math1: {
-    message: "🧠 What's 12 + 37 × 2 ?",
-    answer: "86",
-    success: "✅ You're sharp! Try another?\n1. Yes\n2. Menu",
-    next: {
-      "1": "math2",
-      "2": "start"
-    }
-  },
-  math2: {
-    message: "➕ What is the square root of 144?",
-    answer: "12",
-    success: "✔️ Smart! Go on?\n1. More Math\n2. Menu",
-    next: {
-      "1": "math3",
-      "2": "start"
-    }
-  },
-  math3: {
-    message: "➗ What is 99 divided by 3?",
-    answer: "33",
-    success: "Nice job! Back to start?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  joke1: {
-    message: "😂 Why don’t scientists trust atoms?",
-    answer: "they make up everything",
-    success: "🤣 Good one! Next?\n1. Yes\n2. Menu",
-    next: {
-      "1": "joke2",
-      "2": "start"
-    }
-  },
-  joke2: {
-    message: "😆 Why did the math book look sad?",
-    answer: "too many problems",
-    success: "Haha! Back to menu?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  science1: {
-    message: "🌡️ What gas do plants absorb from the air?",
-    answer: "carbon dioxide",
-    success: "✅ Yes! Again?\n1. Yes\n2. Menu",
-    next: {
-      "1": "science2",
-      "2": "start"
-    }
-  },
-  science2: {
-    message: "☀️ What star is at the center of our solar system?",
-    answer: "sun",
-    success: "🌞 Correct! Back to menu?\n1. Yes\n2. Exit",
-    next: {
-      "1": "start",
-      "2": "exit"
-    }
-  },
-
-  exit: {
-    message: "👋 Thanks for chatting with Henry Wakasiaka Chatbot. Come again!",
-    options: {}
-  }
-};
-
-function appendMessage(msg, sender = "bot") {
+// Append user message
+function userReply(message) {
   const p = document.createElement("p");
-  p.className = sender === "bot" ? "bot-msg" : "user-msg";
-  p.textContent = msg;
+  p.textContent = "🙋 " + message;
   chatBox.appendChild(p);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function handleUserInput() {
-  const input = userInput.value.trim().toLowerCase();
-  if (!input) return;
+// Show main options
+function showMainChoices() {
+  let message = "Choose a topic: " + mainChoices.join(", ");
+  botReply(message);
+  if (levelOneCompleted) botReply("Or type 'Exit' to leave the chat.");
+}
 
-  appendMessage(input, "user");
-  userInput.value = "";
+// Handle user input
+function handleInput(input) {
+  const userChoice = input.trim().toLowerCase();
 
-  const state = chatFlow[currentState];
+  if (levelOneCompleted && userChoice === "exit") {
+    botReply("Thanks for chatting. Goodbye! 👋");
+    setTimeout(() => window.close(), 2000);
+    return;
+  }
 
-  if (state.answer) {
-    if (input.includes(state.answer)) {
-      appendMessage(state.success);
-      currentState = Object.keys(state.next)[0]; // wait for choice
-    } else {
-      appendMessage("❌ Try again.");
-    }
-  } else if (state.options) {
-    const nextState = state.options[input];
-    if (nextState) {
-      currentState = nextState;
-      appendMessage(chatFlow[currentState].message);
-    } else {
-      appendMessage("❗Invalid option. Try again.");
-    }
-  } else if (state.next) {
-    const next = state.next[input];
-    if (next) {
-      currentState = next;
-      appendMessage(chatFlow[currentState].message);
-    } else {
-      appendMessage("❗Invalid option.");
-    }
+  // Check for main option match
+  const matched = mainChoices.find(opt => opt.toLowerCase() === userChoice);
+
+  if (matched) {
+    const subs = options[matched];
+    const sub = subs[Math.floor(Math.random() * subs.length)];
+    botReply(`${matched} 👉 ${sub}`);
+    levelOneCompleted = true;
+    showMainChoices();
+  } else {
+    botReply("❌ Not recognized. Please choose a valid option.");
+    showMainChoices();
   }
 }
-*/
 
+// Event listeners
+sendBtn.addEventListener("click", () => {
+  const input = userInput.value;
+  if (input) {
+    userReply(input);
+    handleInput(input);
+    userInput.value = "";
+  }
+});
+
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendBtn.click();
+});
+
+// Start chat
+botReply("Welcome! Let's begin.");
+showMainChoices();
