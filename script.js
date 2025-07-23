@@ -59,12 +59,21 @@ function handleInput(input) {
 
   if (matched) {
     const subs = options[matched];
-    const sub = subs[Math.floor(Math.random() * subs.length)];
-    botReply(`${matched} 👉 ${sub}`);
-    levelOneCompleted = true;
-    showMainChoices();
+
+    // Ask all sub-questions in sequence
+    subs.forEach((question, index) => {
+      setTimeout(() => {
+        botReply(`${matched} Q${index + 1}: ${question}`);
+      }, index * 1500);
+    });
+
+    setTimeout(() => {
+      levelOneCompleted = true;
+      botReply("✅ Level 1 complete!");
+      showMainChoices();
+    }, subs.length * 1500 + 1000);
   } else {
-    botReply("❌ Not recognized. Please choose a valid option.");
+    botReply("❌ Not recognized. Type any main topic to switch, or select a valid option.");
     showMainChoices();
   }
 }
@@ -84,5 +93,6 @@ userInput.addEventListener("keydown", (e) => {
 });
 
 // Start chat
-botReply("Welcome! Let's begin.");
+botReply("Welcome to Henry Wakasiaka's ChatBot! 🎉");
+botReply("I'm here to challenge you with fun and facts. Let's start!");
 showMainChoices();
