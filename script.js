@@ -151,8 +151,7 @@ function handleUserInput() {
 }
 */
 // updated scripts
-
-const chatBox = document.getElementById("chatBox");
+ const chatBox = document.getElementById("chatBox");
 const userInput = document.getElementById("userInput");
 
 let currentState = "start";
@@ -302,3 +301,4 @@ function handleUserInput() {
     }
   }
 }
+
