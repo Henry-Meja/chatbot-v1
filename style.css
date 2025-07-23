@@ -8,10 +8,10 @@ body {
 
 .chat-container {
   width: 75vw;
-  height: 85vh;
+  height: 75vh;
   margin: 2.5vh auto;
   padding: 2rem;
-  background: #e5e5e5;
+  background: #B6D0E2; /* powder blue*/
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   display: flex;
