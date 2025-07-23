@@ -1,82 +1,98 @@
-/* Reset default */
+ /* Reset basic styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Full screen layout with small margin */
 body {
-  height: 100vh;
-  width: 100vw;
+  background: #f4f7fa;
   font-family: 'Segoe UI', sans-serif;
-  font-size: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(145deg, #e3f2fd, #bbdefb);
-  padding: 2vh 2vw; /* small margin */
+  height: 100vh;
+  padding: 10rem;
 }
 
-/* Chat container */
+/* Main chat container */
 #chat-container {
   width: 100%;
+  max-width: 1200px;
   height: 100%;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  border-radius: 1.5rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: zoomIn 0.4s ease;
-  padding: 1rem;
+  padding: 2rem;
+  animation: fadeInUp 0.7s ease;
 }
 
-/* Chat area styling */
+/* Chat message area */
 #chat-box {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  padding-right: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 
-/* Input + button row */
+/* Input row styling */
 #input-row {
   display: flex;
-  gap: 0.5rem;
+  margin-top: 1rem;
+  gap: 0.8rem;
 }
 
-input, button {
-  font-size: 5rem;
-  padding: 0.6rem;
-  border: none;
-  border-radius: 8px;
-}
-
-input {
+#user-input {
   flex: 1;
-  background: #f1f1f1;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid #ccc;
+  border-radius: 0.8rem;
+  outline: none;
+  transition: border 0.3s;
 }
 
+#user-input:focus {
+  border-color: #1976d2;
+}
+
+/* Button styling */
 button {
-  background: #2196f3;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  background-color: #1976d2;
   color: white;
+  border: none;
+  border-radius: 0.8rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
 }
 
 button:hover {
-  background: #1976d2;
+  background-color: #1565c0;
 }
 
-/* Animation */
-@keyframes zoomIn {
+/* Scrollbar for chat */
+#chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+#chat-box::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+/* Entry animation */
+@keyframes fadeInUp {
   from {
-    transform: scale(0.8);
     opacity: 0;
+    transform: translateY(40px);
   }
   to {
-    transform: scale(1);
     opacity: 1;
+    transform: translateY(0);
   }
 }
