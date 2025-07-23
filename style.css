@@ -1,4 +1,3 @@
-
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -27,25 +26,36 @@ body {
   padding: 1rem;
 }
 
+/* NEW: Input and Button in Flex Container */
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+/* Input field */
 input[type="text"] {
-  width: 45%;
+  flex: 1; /* takes remaining space */
   padding: 1rem;
   font-size: 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
+  min-width: 0; /* fix overflow on small screens */
 }
 
+/* Send Button */
 button {
-  width: 20%;
   padding: 1rem;
   font-size: 1rem;
-  margin-left: 1rem;
   background: #007bff;
   color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.3s ease;
+  white-space: nowrap;
 }
 
 button:hover {
