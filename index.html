@@ -1,17 +1,27 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Henry Wakasiaka's ChatBot</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="chat-box">
-    <p id="chat-message">Welcome to Henry Wakasiaka's ChatBot! 🎉</p>
-  </div>
-  
-  <input type="text" id="user-input" placeholder="Type a topic..." />
-  <button id="send-btn">Send</button>
+  <div class="chat-container">
+    
+    <!-- Matches .chat-box class in CSS -->
+    <div id="chat-box" class="chat-box">
+      <p id="chat-message">Welcome to Henry Wakasiaka's ChatBot! 🎉</p>
+    </div>
 
+    <!-- Matches .input-group in CSS -->
+    <div class="input-group">
+      <input type="text" id="user-input" placeholder="Type a topic..." />
+      <button id="send-btn">Send</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
