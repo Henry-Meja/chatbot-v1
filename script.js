@@ -85,4 +85,4 @@ exitBtn.addEventListener("click", () => {
 
 // Initialize
 updateChat("Welcome to Henry Wakasiaka's ChatBot! 🎉");
-showMainChoices();v
+showMainChoices();
