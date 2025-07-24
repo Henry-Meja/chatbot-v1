@@ -1,14 +1,10 @@
- // script.js
-
-// Get DOM elements
-const chatBox = document.getElementById("chat-box");
+ // Get DOM elements
+const chatBox = document.getElementById("chat-message");
 const userInput = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 
-// Initial choices
+// Main categories
 const mainChoices = ["Maths", "Riddles", "Jokes", "Sciences", "Facts", "Geography", "Space"];
-
-// Sub-options
 const options = {
   Maths: ["What is 7 x 8?", "Solve: 15 + (6 × 2) - 4", "Find the square root of 144"],
   Riddles: ["What has keys but can't open locks?", "I speak without a mouth... What am I?", "What can travel around the world while staying in a corner?"],
@@ -19,71 +15,65 @@ const options = {
   Space: ["Which planet is called the Red Planet?", "What is a light-year?", "Name our galaxy."]
 };
 
-let levelOneCompleted = false;
+let currentTopic = null;
+let subIndex = 0;
 
-// Append bot message
-function botReply(message) {
-  const p = document.createElement("p");
-  p.textContent = "🤖 " + message;
-  chatBox.appendChild(p);
-  chatBox.scrollTop = chatBox.scrollHeight;
+// Display message in same <p> element
+function updateChat(message) {
+  chatBox.innerHTML = message;
 }
 
-// Append user message
-function userReply(message) {
-  const p = document.createElement("p");
-  p.textContent = "🙋 " + message;
-  chatBox.appendChild(p);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Show main options
+// Show main topic choices
 function showMainChoices() {
-  let message = "Choose a topic: " + mainChoices.join(", ");
-  botReply(message);
-  if (levelOneCompleted) botReply("Or type 'Exit' to leave the chat.");
+  const msg = `Choose a topic: ${mainChoices.join(", ")} <br>Type 'Exit' to quit.`;
+  updateChat("🤖 " + msg);
+  currentTopic = null;
+  subIndex = 0;
 }
 
 // Handle user input
 function handleInput(input) {
-  const userChoice = input.trim().toLowerCase();
+  const choice = input.trim();
+  const lower = choice.toLowerCase();
 
-  if (levelOneCompleted && userChoice === "exit") {
-    botReply("Thanks for chatting. Goodbye! 👋");
-    setTimeout(() => window.close(), 2000);
+  if (lower === "exit") {
+    updateChat("🤖 Thanks for chatting. Goodbye! 👋");
+    setTimeout(() => window.close(), 1500);
     return;
   }
 
-  // Check for main option match
-  const matched = mainChoices.find(opt => opt.toLowerCase() === userChoice);
-
+  // New topic selected
+  const matched = mainChoices.find(opt => opt.toLowerCase() === lower);
   if (matched) {
-    const subs = options[matched];
-
-    // Ask all sub-questions in sequence
-    subs.forEach((question, index) => {
-      setTimeout(() => {
-        botReply(`${matched} Q${index + 1}: ${question}`);
-      }, index * 1500);
-    });
-
-    // Mark level complete only after all sub-questions
-    setTimeout(() => {
-      levelOneCompleted = true;
-      botReply("✅ Level 1 complete!");
-      showMainChoices();
-    }, subs.length * 1500 + 1000);
+    currentTopic = matched;
+    subIndex = 0;
+    showNextSubOption();
+  } else if (currentTopic && options[currentTopic][subIndex]) {
+    // Move to next sub-question
+    subIndex++;
+    showNextSubOption();
   } else {
-    botReply("❌ Not recognized. Type any main topic to switch, or select a valid option.");
+    updateChat("🤖 ❌ Invalid input. Choose a valid topic.");
     showMainChoices();
   }
 }
 
-// Event listeners
+// Show next sub-question
+function showNextSubOption() {
+  const subOptions = options[currentTopic];
+  if (subIndex < subOptions.length) {
+    updateChat(`🤖 ${currentTopic} Q${subIndex + 1}: ${subOptions[subIndex]}`);
+  } else {
+    updateChat(`🤖 ✅ You've completed all ${currentTopic} questions.<br>Pick another topic or type 'Exit'.`);
+    currentTopic = null;
+    subIndex = 0;
+  }
+}
+
+// Event Listeners
 sendBtn.addEventListener("click", () => {
   const input = userInput.value;
   if (input) {
-    userReply(input);
     handleInput(input);
     userInput.value = "";
   }
@@ -93,7 +83,5 @@ userInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendBtn.click();
 });
 
-// Start chat
-botReply("Welcome to Henry Wakasiaka's ChatBot! 🎉");
-botReply("I'm here to challenge you with fun and facts. Type a topic to begin.");
-showMainChoices();
+// Start
+updateChat("🤖 Welcome to Henry Wakasiaka's ChatBot! 🎉<br>Type a topic to begin.");
