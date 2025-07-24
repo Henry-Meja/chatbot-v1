@@ -1,9 +1,11 @@
+ /* Base Light Theme */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   background: #fff;
   height: 100vh;
+  transition: background 0.3s, color 0.3s;
 }
 
 .chat-container {
@@ -11,12 +13,13 @@ body {
   height: 80vh;
   margin: 2.5vh auto;
   padding: 2rem;
-  background: #B6D0E2; /* powder blue*/
+  background: #B6D0E2; /* powder blue */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: background 0.3s ease;
 }
 
 .chat-box {
@@ -24,9 +27,12 @@ body {
   overflow-y: auto;
   font-size: 1.2rem;
   padding: 1rem;
+  background: #ffffffd9;
+  border-radius: 10px;
+  transition: background 0.3s ease;
 }
 
-/* NEW: Input and Button in Flex Container */
+/* Input and Button in Flex Container */
 .input-group {
   display: flex;
   align-items: center;
@@ -37,12 +43,13 @@ body {
 
 /* Input field */
 input[type="text"] {
-  flex: 1; /* takes remaining space */
+  flex: 1;
   padding: 1rem;
   font-size: 1rem;
   border-radius: 10px;
   border: 1px solid #ccc;
-  min-width: 0; /* fix overflow on small screens */
+  min-width: 0;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Send Button */
@@ -60,4 +67,34 @@ button {
 
 button:hover {
   background: #0056b3;
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .chat-container {
+  background: #1f1f1f;
+}
+
+body.dark-mode .chat-box {
+  background: #2a2a2a;
+  color: #fafafa;
+}
+
+body.dark-mode input[type="text"] {
+  background: #333;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-mode button {
+  background: #444;
+  color: white;
+}
+
+body.dark-mode button:hover {
+  background: #666;
 }
