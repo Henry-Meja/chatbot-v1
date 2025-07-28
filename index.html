@@ -1,30 +1,24 @@
- <!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Henry Wakasiaka's ChatBot</title>
+  <title></title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+  <div class="container">
+  <h1 class="heading">👋 Hello, I'm Henry KE</h1>
+  <p class="intro">Click the buttons below to explore more about me:</p>
 
-  <div class="chat-container">
-    
-    <div id="chat-box" class="chat-box">
-      <p id="chat-message">Welcome to Henry Wakasiaka's ChatBot! 🎉</p>
-    </div>
-
-    <!-- Main Option Buttons -->
-    <div id="topic-buttons" class="input-group"></div>
-
-    <!-- Control Buttons -->
-    <div class="input-group">
-      <button id="next-btn">Next</button>
-      <button id="redo-btn">Redo</button>
-      <button id="exit-btn">Exit</button>
-    </div>
-
+  <div class="buttons">
+    <button onclick="showInfo('skills')">🧠 Skills</button>
+    <button onclick="showInfo('goals')">🎯 Goals</button>
+    <button onclick="showInfo('contact')">📞 Contact</button>
   </div>
 
+  <div id="infoBox" class="info-box hidden">
+    
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
