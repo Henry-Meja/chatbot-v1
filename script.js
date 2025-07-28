@@ -1,68 +1,48 @@
- document.addEventListener("DOMContentLoaded", () => {
-  const chatBox = document.getElementById("chat-box");
-  const userInput = document.getElementById("user-input");
-  const sendBtn = document.getElementById("send-btn");
+let hideTimer = null; // Global timer reference
 
-  const options = ["Weather", "News", "Science", "Exit"];
-  
-  function displayBotMessage(message) {
-    const msg = document.createElement("p");
-    msg.textContent = "🤖 " + message;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
+function showInfo(type) {
+  const box = document.getElementById("infoBox");
+
+  // Show the info box
+  box.classList.remove("hidden");
+
+  // Clear any existing timer
+  if (hideTimer) {
+    clearTimeout(hideTimer);
   }
 
-  function displayUserMessage(message) {
-    const msg = document.createElement("p");
-    msg.textContent = "🧑 " + message;
-    chatBox.appendChild(msg);
+  // Set new content based on button clicked
+  if (type === "skills") {
+    box.innerHTML = `
+      <h3>💻 My Skills</h3>
+      <ul>
+        <li>✔ Fullstack Web Dev (React, Node.js)</li>
+        <li>✔ Python, JS, PHP, WordPress</li>
+        <li>✔ HTML, CSS, CMS </li>
+        <li>✔ Express, mongoDB</li>
+      </ul>
+    `;
+  } else if (type === "goals") {
+    box.innerHTML = `
+      <h3>🚀 My Goals</h3>
+      <ul>
+        <li>• Build Systems (Online & Offline)</li>
+        <li>• Develop Smart Desktop & Mobile Apps</li>
+        <li>• Python for automation and AI</li>
+        <li>• Develop Embedded Systems</li>
+      </ul>
+    `;
+  } else if (type === "contact") {
+    box.innerHTML = `
+      <h3>📬 Let's Connect</h3>
+      <p style="color:#25d366; font-size: 1.2em;"> Follow Me on Mimo
+        <i class ="fa-solid fa-user-plus"> </i>
+      </p>
+    `;
   }
 
-  function showOptions() {
-    const optionContainer = document.createElement("div");
-    optionContainer.classList.add("option-buttons");
-    options.forEach(option => {
-      const btn = document.createElement("button");
-      btn.textContent = option;
-      btn.onclick = () => handleOption(option);
-      optionContainer.appendChild(btn);
-    });
-    chatBox.appendChild(optionContainer);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-
-  function handleOption(option) {
-    displayUserMessage(option);
-    if (option === "Exit") {
-      displayBotMessage("Goodbye! 👋");
-      return;
-    }
-
-    // Dummy responses
-    const responses = {
-      "Weather": "Today's weather is sunny ☀️.",
-      "News": "Breaking News: Education Bill passed.",
-      "Science": "Science fact: Water boils at 100°C."
-    };
-
-    const reply = responses[option] || "I didn't get that.";
-    displayBotMessage(reply);
-    displayBotMessage("Would you like to choose another option?");
-    showOptions(); // loop again
-  }
-
-  sendBtn.addEventListener("click", () => {
-    const message = userInput.value.trim();
-    if (!message) return;
-
-    displayUserMessage(message);
-    userInput.value = "";
-
-    displayBotMessage("I can’t process that. Please choose an option:");
-    showOptions();
-  });
-
-  // Initial greeting
-  displayBotMessage("Welcome to Henry Wakasiaka's ChatBot! Please choose a topic:");
-  showOptions();
-});
+  // Start auto-hide after 5 seconds
+  hideTimer = setTimeout(() => {
+    box.classList.add("hidden");
+  }, 5000);
+}
