@@ -1,4 +1,4 @@
- /* Page Background */
+/* === Page Background === */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: #e5ddd5;
@@ -10,7 +10,7 @@ body {
   min-height: 100vh;
 }
 
-/* Main Card Container */
+/* === Main Card Container === */
 .container {
   background: #ffffff;
   border-radius: 20px;
@@ -23,7 +23,7 @@ body {
   border: 1px solid #dcf8c6;
 }
 
-/* Heading & Intro */
+/* === Heading & Intro === */
 .heading {
   font-size: 1.8em;
   color: #075e54;
@@ -36,7 +36,14 @@ body {
   margin-bottom: 20px;
 }
 
-/* Buttons Section */
+/* === Buttons Section === */
+.buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
 .buttons button {
   background-color: #25d366;
   color: #fff;
@@ -54,30 +61,23 @@ body {
   background-color: #1ebe5d;
 }
 
-.buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;
-  gap: 10px;
-}
-
+/* === Buttons Scrollable on Small Screens === */
 @media screen and (max-width: 360px) {
   .buttons {
     overflow-x: auto;
-    justify-content: start;  /* left-align for natural scroll */
+    justify-content: start;
   }
 
   .buttons::-webkit-scrollbar {
-    display: none; /* Optional: hide scroll bar for clean look */
+    display: none;
   }
 
   .buttons button {
-    flex-shrink: 0; /* prevent buttons from shrinking */
+    flex-shrink: 0;
   }
 }
 
-
-/* Info Display Box */
+/* === Info Display Box === */
 .info-box {
   margin-top: 20px;
   background-color: #f0f0f0;
@@ -87,17 +87,22 @@ body {
   border-left: 5px solid #25d366;
   animation: fadeIn 0.4s ease;
   text-align: left;
+  font-size: 1.05rem;
 }
 
+/* === Hide Box Initially === */
 .hidden {
   display: none;
 }
 
+/* === Info Box Headings === */
 .info-box h3 {
   color: #075e54;
   margin-bottom: 10px;
+  font-size: 1.4em;
 }
 
+/* === List Styling === */
 .info-box ul {
   list-style: none;
   padding-left: 0;
@@ -108,8 +113,50 @@ body {
   color: #25d366;
 }
 
-/* Fade in animation */
+/* === Fade In Animation === */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Responsive Enhancements (Mobile First) === */
+@media screen and (max-width: 480px) {
+  .info-box {
+    font-size: 0.95em;
+    padding: 16px;
+  }
+
+  .info-box h3 {
+    font-size: 1.2em;
+  }
+}
+
+/* === Desktop View Improvements === */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 600px;
+    padding: 40px;
+  }
+
+  .heading {
+    font-size: 2em;
+  }
+
+  .intro {
+    font-size: 1.2em;
+  }
+
+  .buttons button {
+    font-size: 1.05em;
+    padding: 12px 20px;
+  }
+
+  .info-box {
+    font-size: 1.1em;
+    padding: 25px;
+  }
+
+  .info-box h3 {
+    font-size: 1.6em;
+  }
 }
