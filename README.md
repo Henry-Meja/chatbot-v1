@@ -1,2 +1,2 @@
-# chatbot-v1
-An interactive chatbot
+# about me
+About Henry Wakasiaka
